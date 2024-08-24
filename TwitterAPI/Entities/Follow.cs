@@ -7,8 +7,7 @@ namespace TwitterAPI.Entities
     public class Follow
     {
         [Key]
-        [StringLength(25)]
-        public string FollowId { get; set; }
+        public int FollowId { get; set; }
         [ForeignKey("Follower")]
         [StringLength(25)]
         public string UserId { get; set; }

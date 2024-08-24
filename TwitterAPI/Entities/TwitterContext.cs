@@ -20,6 +20,8 @@ namespace TwitterAPI.Entities
         public DbSet<User> Users { get; set; }
         public DbSet<Tweet> Tweets { get; set; }
         public DbSet<Follow> Follows { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Media> Media { get; set; }
 
         // Method to configure the model and its relationships using Fluent API.
         // This is where you can define database schema details such as table relationships and indexes.

@@ -77,9 +77,43 @@ namespace TwitterAPI.Controllers
 
         }
 
+        //Get Users by email
+        [HttpGet, Route("GetUserByEmail/{email}")]
+        [Authorize(Roles = "User,Admin")] //Restrict access by roles
+        public async Task<IActionResult> GetUserByEmail(string email)
+        {
+            try
+            {
+                var users = await _userRepository.GetByEmail(email);
+                return Ok(users);
+            }
+            catch(Exception ex)
+            {
+                // Log exception here
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // Get all users
+        [HttpGet, Route("GetAllUsers")]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                var users = await _userRepository.GetAllUsersAsync();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                // Log exception here
+                return StatusCode(500, "An error occurred while retrieving users.");
+            }
+        }
+
         //Edit User Profile
         [HttpPut, Route("EditProfile")]
-        //[Authorize(Roles ="User,Admin")] //Restrict access by roles
+        [Authorize(Roles ="User,Admin")] //Restrict access by roles
         public async Task<IActionResult> Edit([FromBody]User user)
         {
             if (!ModelState.IsValid)
@@ -99,7 +133,7 @@ namespace TwitterAPI.Controllers
 
         //Delete User Profile
         [HttpDelete, Route("DeleteProfile/{id}")]
-        //[Authorize(Roles = "User,Admin")] //Restrict access by roles
+        [Authorize(Roles = "User,Admin")] //Restrict access by roles
         public async Task<IActionResult> Delete(string id)
         {
             try
@@ -132,7 +166,7 @@ namespace TwitterAPI.Controllers
                         new Claim(ClaimTypes.Role, user.Role),
                     });
 
-            var expires = DateTime.UtcNow.AddMinutes(10);//token will expire after 10min
+            var expires = DateTime.UtcNow.AddMinutes(10); //token will expire after 10min
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TwitterAPI.Entities;
 using TwitterAPI.Repositories;
@@ -10,14 +11,18 @@ namespace TwitterAPI.Controllers
     public class TweetController : ControllerBase
     {
         private readonly ITweetRepository _tweetRepository;
+        private readonly IMediaRepository _mediaRepository;
         // Constructor to initialize tweet repository
-        public TweetController(ITweetRepository tweetRepository)
+        public TweetController(ITweetRepository tweetRepository, IMediaRepository mediaRepository)
         {
             _tweetRepository = tweetRepository;
+            _mediaRepository = mediaRepository;
         }
 
         // Add a new tweet
         [HttpPost, Route("AddTweet")]
+        [Authorize(Roles = "User")] //Restrict access by roles
+
         public async Task<IActionResult> Add(Tweet tweet)
         {
             if (!ModelState.IsValid)
@@ -37,6 +42,7 @@ namespace TwitterAPI.Controllers
 
         // Get all tweets
         [HttpGet, Route("GetTweets")]
+        [Authorize(Roles = "Admin")] //Restrict access by roles
         public async Task<IActionResult> GetAll()
         {
             try
@@ -53,6 +59,7 @@ namespace TwitterAPI.Controllers
 
         // Get tweets by user ID
         [HttpGet, Route("GetTweetsByUserId/{userId}")]
+        [Authorize(Roles = "User,Admin")] //Restrict access by roles
         public async Task<IActionResult> GetByUserId(string userId)
         {
             try
@@ -69,6 +76,7 @@ namespace TwitterAPI.Controllers
 
         // Edit an existing tweet
         [HttpPut, Route("EditTweet")]
+        [Authorize(Roles = "User")] //Restrict access by roles
         public async Task<IActionResult> Edit([FromBody] Tweet tweet)
         {
             if (!ModelState.IsValid)
@@ -88,6 +96,7 @@ namespace TwitterAPI.Controllers
 
         // Delete a tweet by its ID
         [HttpDelete, Route("DeleteTweet/{id}")]
+        [Authorize(Roles = "User,Admin")] //Restrict access by roles
         public async Task<IActionResult> Delete(int id)
         {
             try

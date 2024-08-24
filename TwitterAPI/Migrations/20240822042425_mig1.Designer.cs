@@ -12,8 +12,8 @@ using TwitterAPI.Entities;
 namespace TwitterAPI.Migrations
 {
     [DbContext(typeof(TwitterContext))]
-    [Migration("20240811183441_CreateTwitterAppDB")]
-    partial class CreateTwitterAppDB
+    [Migration("20240822042425_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,33 @@ namespace TwitterAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("TwitterAPI.Entities.Follow", b =>
+                {
+                    b.Property<int>("FollowId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FollowId"));
+
+                    b.Property<string>("FollowingId")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("FollowId");
+
+                    b.HasIndex("FollowingId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Follows");
+                });
 
             modelBuilder.Entity("TwitterAPI.Entities.Tweet", b =>
                 {
@@ -38,8 +65,8 @@ namespace TwitterAPI.Migrations
 
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasMaxLength(140)
-                        .HasColumnType("nvarchar(140)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -90,6 +117,25 @@ namespace TwitterAPI.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("TwitterAPI.Entities.Follow", b =>
+                {
+                    b.HasOne("TwitterAPI.Entities.User", "Following")
+                        .WithMany()
+                        .HasForeignKey("FollowingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TwitterAPI.Entities.User", "Follower")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Follower");
+
+                    b.Navigation("Following");
                 });
 
             modelBuilder.Entity("TwitterAPI.Entities.Tweet", b =>

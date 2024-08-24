@@ -1,4 +1,4 @@
-
+    
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -20,6 +20,8 @@ namespace TwitterAPI
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<ITweetRepository, TweetRepository>();
             builder.Services.AddTransient<IFollowRepository, FollowRepository>();
+            builder.Services.AddTransient<ICommentRepository, CommentRepository>();
+            builder.Services.AddTransient<IMediaRepository, MediaRepository>();
             builder.Services.AddControllers();
 
             //Configure JWT to valie token data
@@ -48,7 +50,7 @@ namespace TwitterAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "JWTToken_Auth_API",
+                    Title = "Twitter App",
                     Version = "v1"
                 });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()

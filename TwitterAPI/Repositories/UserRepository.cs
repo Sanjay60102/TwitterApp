@@ -47,6 +47,31 @@ namespace TwitterAPI.Repositories
             
         }
 
+        // Get User details by email id
+        public async Task<List<User>> GetByEmail(string email)
+        {
+            try
+            {
+                var user = await _context.Users
+                    .Where(u => u.Email == email)
+                    .ToListAsync();
+                return user;
+
+            }
+            catch (Exception ex)
+            {
+                // Log exception here
+                throw new Exception("Am error occurred while retrieving the tweets by UserId.", ex);
+            }
+        }
+        
+
+        // Retrieve all users
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         // Updates user information
         public async Task Update(User user)
         {
@@ -84,5 +109,7 @@ namespace TwitterAPI.Repositories
             
             
         }
+
+        
     }
 }

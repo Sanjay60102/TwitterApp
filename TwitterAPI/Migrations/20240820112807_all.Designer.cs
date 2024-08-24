@@ -12,8 +12,8 @@ using TwitterAPI.Entities;
 namespace TwitterAPI.Migrations
 {
     [DbContext(typeof(TwitterContext))]
-    [Migration("20240813172331_mig1")]
-    partial class mig1
+    [Migration("20240820112807_all")]
+    partial class all
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,12 @@ namespace TwitterAPI.Migrations
 
             modelBuilder.Entity("TwitterAPI.Entities.Follow", b =>
                 {
-                    b.Property<string>("FollowId")
+                    b.Property<int>("FollowId")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FollowId"));
 
                     b.Property<string>("FollowingId")
                         .IsRequired()

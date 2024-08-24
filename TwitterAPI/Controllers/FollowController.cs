@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TwitterAPI.Entities;
 using TwitterAPI.Repositories;
@@ -17,6 +18,7 @@ namespace TwitterAPI.Controllers
 
         //Add a new following relationship
         [HttpPost, Route("AddFollowing")]
+        [Authorize(Roles = "User")] //Restrict access by roles
         public async Task<IActionResult> AddFollowing([FromBody] Follow follow)
         {
             if(follow == null || follow.UserId == follow.FollowingId)
@@ -26,7 +28,7 @@ namespace TwitterAPI.Controllers
             try
             {
                 await _followRepository.AddFollowing(follow);
-                return Ok(new { Message = "Following added successfully" });
+                return Ok(new { Message = "Following added successfully." });
             }
             catch (Exception ex)
             {
@@ -37,6 +39,7 @@ namespace TwitterAPI.Controllers
 
         // Remove a following relationship
         [HttpDelete, Route("RemoveFollowing/{userId}/{followingId}")]
+        [Authorize(Roles = "User")] //Restrict access by roles
         public async Task<IActionResult> RemoveFollowing(string userId, string followingId)
         {
             try
@@ -53,6 +56,7 @@ namespace TwitterAPI.Controllers
 
         // Get all followers for a specific user
         [HttpGet, Route("GetFollowers/{followingId}")]
+        [Authorize(Roles = "User,Admin")] //Restrict access by roles
         public async Task<IActionResult> GetFollowers(string followingId)
         {
             try
@@ -69,6 +73,7 @@ namespace TwitterAPI.Controllers
 
         // Get all followings for a specific user
         [HttpGet, Route("GetFollowings/{userId}")]
+        [Authorize(Roles = "User,Admin")] //Restrict access by roles
         public async Task<IActionResult> GetFollowings(string userId)
         {
             try

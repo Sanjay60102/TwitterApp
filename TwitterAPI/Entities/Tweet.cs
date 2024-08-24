@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using TwitterAPI.Models;
 
 namespace TwitterAPI.Entities
 {
@@ -13,7 +15,7 @@ namespace TwitterAPI.Entities
         [StringLength(25)]
         [ForeignKey("Users")]
         public string UserId { get; set; }
-        [Required,MaxLength(140)]
+        [Required,MaxLength(250)]
         public string Message { get; set; }
         [Required]
         public DateTime Created {  get; set; } = DateTime.Now;
@@ -22,5 +24,6 @@ namespace TwitterAPI.Entities
         [JsonIgnore]
         public User? User { get; set; }
 
+        
     }
 }

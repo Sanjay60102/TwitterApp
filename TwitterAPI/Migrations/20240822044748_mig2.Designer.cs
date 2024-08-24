@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TwitterAPI.Entities;
 
@@ -11,9 +12,11 @@ using TwitterAPI.Entities;
 namespace TwitterAPI.Migrations
 {
     [DbContext(typeof(TwitterContext))]
-    partial class TwitterContextModelSnapshot : ModelSnapshot
+    [Migration("20240822044748_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,32 +82,6 @@ namespace TwitterAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Follows");
-                });
-
-            modelBuilder.Entity("TwitterAPI.Entities.Media", b =>
-                {
-                    b.Property<int>("MediaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MediaId"));
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TweetId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MediaId");
-
-                    b.HasIndex("TweetId");
-
-                    b.ToTable("Media");
                 });
 
             modelBuilder.Entity("TwitterAPI.Entities.Tweet", b =>
@@ -212,17 +189,6 @@ namespace TwitterAPI.Migrations
                     b.Navigation("Following");
                 });
 
-            modelBuilder.Entity("TwitterAPI.Entities.Media", b =>
-                {
-                    b.HasOne("TwitterAPI.Entities.Tweet", "Tweet")
-                        .WithMany("Media")
-                        .HasForeignKey("TweetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tweet");
-                });
-
             modelBuilder.Entity("TwitterAPI.Entities.Tweet", b =>
                 {
                     b.HasOne("TwitterAPI.Entities.User", "User")
@@ -232,11 +198,6 @@ namespace TwitterAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TwitterAPI.Entities.Tweet", b =>
-                {
-                    b.Navigation("Media");
                 });
 #pragma warning restore 612, 618
         }
