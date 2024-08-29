@@ -24,6 +24,16 @@ namespace TwitterAPI
             builder.Services.AddTransient<IMediaRepository, MediaRepository>();
             builder.Services.AddControllers();
 
+            //Configure the CORS:Cross Origin Resourse Sharing
+            builder.Services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options =>
+                options.AllowAnyOrigin() //allow any client server
+                .AllowAnyMethod() //Allow any http method like (get,post,put,delete)
+                .AllowAnyHeader() //Allow any header like accept, authorize etc
+                );
+            });
+
             //Configure JWT to valie token data
             builder.Services.AddAuthentication(options =>
             {
@@ -89,6 +99,9 @@ namespace TwitterAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            //add Cors to meddleware
+            app.UseCors("AllowOrigin");
 
             // Enable authentication and authorization middlewares
             app.UseAuthentication(); // Add authentication middleware to the request pipeline

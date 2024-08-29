@@ -49,6 +49,19 @@ namespace TwitterAPI.Repositories
             }
         }
 
+        public async Task<Tweet> GetById(int id)
+        {
+            try
+            {
+                var tweet = await _context.Tweets.FirstOrDefaultAsync(t => t.TweetId == id);
+                return tweet;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving the tweets by UserId.", ex);
+            }
+        }
+
         // Get tweets by a specific user ID
         public async Task<List<Tweet>> GetByUserIdAsync(string userId)
         {
@@ -94,5 +107,7 @@ namespace TwitterAPI.Repositories
                 throw new Exception("An error occurred while updating the tweet.", ex);
             }
         }
+
+        
     }
 }

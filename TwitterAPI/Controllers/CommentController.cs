@@ -73,7 +73,7 @@ namespace TwitterAPI.Controllers
 
         // Update a comment
         [HttpPut, Route("UpdateComment")]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<IActionResult> UpdateComment([FromBody] Comment comment)
         {
             if (!ModelState.IsValid)
@@ -93,7 +93,7 @@ namespace TwitterAPI.Controllers
 
         // Delete a comment
         [HttpDelete, Route("DeleteComment/{commentId}")]
-        [Authorize(Roles = "User,Admin")]
+        //[Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> DeleteComment(int commentId)
         {
             try

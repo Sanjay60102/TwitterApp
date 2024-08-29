@@ -77,9 +77,25 @@ namespace TwitterAPI.Controllers
 
         }
 
+        //Get User by UserId
+        [HttpGet, Route("GetUserById/{userId}")]
+        //[Authorize(Roles ="User,Admin")]
+        public async Task<IActionResult> GetUserById(string userId)
+        {
+            try
+            {
+                var user = await _userRepository.GetByUserId(userId);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         //Get Users by email
         [HttpGet, Route("GetUserByEmail/{email}")]
-        [Authorize(Roles = "User,Admin")] //Restrict access by roles
+        //[Authorize(Roles = "User,Admin")] //Restrict access by roles
         public async Task<IActionResult> GetUserByEmail(string email)
         {
             try
@@ -96,7 +112,7 @@ namespace TwitterAPI.Controllers
 
         // Get all users
         [HttpGet, Route("GetAllUsers")]
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -113,7 +129,7 @@ namespace TwitterAPI.Controllers
 
         //Edit User Profile
         [HttpPut, Route("EditProfile")]
-        [Authorize(Roles ="User,Admin")] //Restrict access by roles
+        //[Authorize(Roles ="User,Admin")] //Restrict access by roles
         public async Task<IActionResult> Edit([FromBody]User user)
         {
             if (!ModelState.IsValid)
@@ -133,7 +149,7 @@ namespace TwitterAPI.Controllers
 
         //Delete User Profile
         [HttpDelete, Route("DeleteProfile/{id}")]
-        [Authorize(Roles = "User,Admin")] //Restrict access by roles
+        //[Authorize(Roles = "User,Admin")] //Restrict access by roles
         public async Task<IActionResult> Delete(string id)
         {
             try

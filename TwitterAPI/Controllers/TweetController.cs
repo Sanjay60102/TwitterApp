@@ -21,7 +21,7 @@ namespace TwitterAPI.Controllers
 
         // Add a new tweet
         [HttpPost, Route("AddTweet")]
-        [Authorize(Roles = "User")] //Restrict access by roles
+        // [Authorize(Roles = "User")] //Restrict access by roles
 
         public async Task<IActionResult> Add(Tweet tweet)
         {
@@ -42,7 +42,7 @@ namespace TwitterAPI.Controllers
 
         // Get all tweets
         [HttpGet, Route("GetTweets")]
-        [Authorize(Roles = "Admin")] //Restrict access by roles
+        // [Authorize(Roles = "Admin")] //Restrict access by roles
         public async Task<IActionResult> GetAll()
         {
             try
@@ -57,9 +57,25 @@ namespace TwitterAPI.Controllers
             }
         }
 
+        //Get tweet by Id
+        [HttpGet, Route("GetById/{tweetId}")]
+        //[Authorize(Roles = "User,Admin")]
+        public async Task<IActionResult> GetById(int tweetId)
+        {
+            try
+            {
+                var tweet = await _tweetRepository.GetById(tweetId);
+                return Ok(tweet);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         // Get tweets by user ID
         [HttpGet, Route("GetTweetsByUserId/{userId}")]
-        [Authorize(Roles = "User,Admin")] //Restrict access by roles
+        // [Authorize(Roles = "User,Admin")] //Restrict access by roles
         public async Task<IActionResult> GetByUserId(string userId)
         {
             try
@@ -76,7 +92,7 @@ namespace TwitterAPI.Controllers
 
         // Edit an existing tweet
         [HttpPut, Route("EditTweet")]
-        [Authorize(Roles = "User")] //Restrict access by roles
+        // [Authorize(Roles = "User")] //Restrict access by roles
         public async Task<IActionResult> Edit([FromBody] Tweet tweet)
         {
             if (!ModelState.IsValid)
@@ -96,7 +112,7 @@ namespace TwitterAPI.Controllers
 
         // Delete a tweet by its ID
         [HttpDelete, Route("DeleteTweet/{id}")]
-        [Authorize(Roles = "User,Admin")] //Restrict access by roles
+        // [Authorize(Roles = "User,Admin")] //Restrict access by roles
         public async Task<IActionResult> Delete(int id)
         {
             try

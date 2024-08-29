@@ -47,6 +47,19 @@ namespace TwitterAPI.Repositories
             
         }
 
+        public async Task<User> GetByUserId(string userId)
+        {
+            try
+            {
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.UserId == userId);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Am error occurred while retrieving the tweets by UserId.", ex);
+            }
+        }
+
         // Get User details by email id
         public async Task<List<User>> GetByEmail(string email)
         {
