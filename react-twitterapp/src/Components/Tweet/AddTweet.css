@@ -1,0 +1,50 @@
+/* Container styling */
+.tweet-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styling */
+.tweet-form .row {
+    margin-bottom: 15px;
+}
+
+/* Custom styling for the Add Tweet button */
+.tweet-form button[type="submit"] {
+    background-color: #1da1f2;
+    color: white;
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* Hover effect for the Add Tweet button */
+.tweet-form button[type="submit"]:hover {
+    background-color: #0d95e8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .tweet-container {
+        padding: 15px;
+    }
+
+    .tweet-form .row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tweet-form label {
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .tweet-form .col-sm-8 {
+        width: 100%;
+    }
+}

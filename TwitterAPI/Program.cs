@@ -98,6 +98,9 @@ namespace TwitterAPI
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/error");
             }
 
             //add Cors to meddleware

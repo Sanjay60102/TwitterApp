@@ -1,0 +1,54 @@
+/* Container styling */
+.register-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Aligning labels and input fields */
+.register-form .row {
+    margin-bottom: 15px;
+}
+
+/* Form check inline for radio buttons */
+.form-check-inline {
+    margin-right: 15px;
+}
+
+/* Custom styling for the register button */
+.register-form button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Adding hover effects */
+.register-form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .register-container {
+        padding: 15px;
+    }
+
+    .register-form .row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .register-form label {
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .register-form .col-sm-8 {
+        width: 100%;
+    }
+}

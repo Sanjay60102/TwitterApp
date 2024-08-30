@@ -1,0 +1,36 @@
+/* GetTweets.css */
+
+.tweets-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.tweets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tweet-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tweet-card:hover {
+    background-color: #e9ecef;
+}
+
+.tweet-userId {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.tweet-message {
+    font-size: 1em;
+    color: #555;
+}
