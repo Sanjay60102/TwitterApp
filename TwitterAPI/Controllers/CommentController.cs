@@ -56,7 +56,7 @@ namespace TwitterAPI.Controllers
 
         // Get comments by a specific user
         [HttpGet, Route("GetCommentsByUserId/{userId}")]
-        [Authorize(Roles = "User,Admin")]
+        //[Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetCommentsByUserId(string userId)
         {
             try

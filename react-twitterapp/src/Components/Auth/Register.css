@@ -19,17 +19,35 @@
 }
 
 /* Custom styling for the register button */
-.register-form button[type="submit"] {
+.register-form button[type="submit"]
+ {
     background-color: #007bff;
     color: white;
     padding: 10px 0;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-/* Adding hover effects */
-.register-form button[type="submit"]:hover {
+/* Register button specific styles */
+.register-form button[type="submit"] {
+    background-color: #007bff;
+}
+
+/* Login button specific styles */
+.register-form button[type="button"] {
+    background-color: #6c757d;
+}
+
+/* Hover effects for both buttons */
+.register-form button[type="submit"]:hover,
+.register-form button[type="button"]:hover {
     background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive adjustments */
@@ -51,4 +69,24 @@
     .register-form .col-sm-8 {
         width: 100%;
     }
+}
+
+/* Flexbox setup for the entire page to push the footer to the bottom */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrap {
+    flex: 1;
+}
+
+/* Styling for footer */
+footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
 }

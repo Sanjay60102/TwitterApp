@@ -1,0 +1,40 @@
+.followers-container {
+    width: 600px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0);
+}
+
+.followers-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.follower-item {
+    background-color: #f7f9fa;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.follower-item h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.follower-item p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.error-message {
+    color: #e0245e;
+    font-size: 14px;
+    text-align: center;
+}

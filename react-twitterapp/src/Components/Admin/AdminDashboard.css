@@ -1,0 +1,69 @@
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f1f1f1;
+}
+
+.admin-nav {
+    width: 250px;
+    background-color: #373c3f;
+    padding: 20px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-nav ul li {
+    margin: 20px 0;
+}
+
+.admin-nav ul li a, .home-btn, .logout-btn {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: left;
+}
+
+.admin-nav ul li a:hover, .home-btn:hover, .logout-btn:hover {
+    background-color: #666b6d;
+}
+
+.home-btn {
+    background-color: #5b6063;
+    border: none;
+    cursor: pointer;
+}
+
+.logout-btn {
+    background-color: #f44336;
+}
+
+.logout-btn:hover {
+    background-color: #d32f2f;
+}
+
+.admin-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #ffffff;
+    box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1{
+    font-size: 40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-shadow: 3px 3px #ddd;
+}
+
+h4 {
+    color: #1da1f2;
+}

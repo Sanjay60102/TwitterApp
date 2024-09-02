@@ -1,22 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import './AddTweet.css';
 
 const AddTweet = () => {
     const [tweet, SetTweet] = useState({
         tweetId: 0,
-        userId: '',
+        userId: '',  // userId will be populated from sessionStorage
         message: '',
         createdOn: new Date().toISOString(),
     });
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Get the userId from sessionStorage
+        const userId = sessionStorage.getItem("userId");
+        if (userId) {
+            SetTweet((prevTweet) => ({
+                ...prevTweet,
+                userId: userId,
+            }));
+        } else {
+            console.error("No user ID found in sessionStorage");
+        }
+    }, []);  // Runs only once on component mount
+
     const save = (e) => {
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault();  // Prevent form submission
         console.log(tweet);
         axios
             .post('http://localhost:5199/api/Tweet/AddTweet', tweet)
             .then((response) => {
                 console.log(response.data);
+                navigate("/Home");
             })
             .catch((error) => console.log(error));
     };
@@ -32,19 +49,14 @@ const AddTweet = () => {
                             type="text"
                             className="form-control"
                             value={tweet.userId}
-                            onChange={(e) =>
-                                SetTweet((prevObj) => ({
-                                    ...prevObj,
-                                    userId: e.target.value,
-                                }))
-                            }
+                            disabled  // Disable the input field
                         />
                     </div>
                 </div>
                 <div className="row mb-3">
                     <label className="col-sm-4 col-form-label text-end">Message:</label>
                     <div className="col-sm-8">
-                    <textarea 
+                        <textarea 
                             className="form-control"
                             rows="4"
                             value={tweet.message}

@@ -1,0 +1,71 @@
+/* Container styling */
+.profile-container {
+    width: 1000px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0); */
+    position: relative;
+}
+
+/* Edit button at the top right corner */
+.edit-button {
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    background-color: #1da1f2;
+    border-color: #1da1f2;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Styling for the profile details inputs */
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.profile-input {
+    font-size: 18px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f7f9fa;
+    border: 1px solid #e6ecf0;
+}
+
+/* Styling for the profile links */
+.profile-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.profile-link {
+    text-decoration: none;
+    color: #303436;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #fafafa;
+    transition: background-color 0.3s;
+    outline: none;
+}
+
+.profile-link:hover {
+    background-color: #c9c9c9;
+    color: #303436;
+}
+
+/* Error message styling */
+.text-danger {
+    color: #e0245e;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+}

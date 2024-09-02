@@ -22,10 +22,10 @@ const GetUsers = () => {
                             <th>User Id</th>
                             <th>User Name</th>
                             <th>Email</th>
-                            <th>Password</th>
+                            {/* <th>Password</th> */}
                             <th>Mobile Number</th>
                             <th>JoinedAt</th>
-                            <th>Role</th>
+                            {/* <th>Role</th> */}
                         </tr>
                     </thead>
                     <tbody className="table table-secondary">
@@ -34,10 +34,10 @@ const GetUsers = () => {
                                 <td>{i.userId}</td>
                                 <td>{i.userName}</td>
                                 <td>{i.email}</td>
-                                <td>{i.password}</td>
+                                {/* <td>{i.password}</td> */}
                                 <td>{i.mobileNumber}</td>
                                 <td>{i.joinedAt}</td>
-                                <td>{i.role}</td>
+                                {/* <td>{i.role}</td> */}
                             </tr>
                         ))}
                     </tbody>
