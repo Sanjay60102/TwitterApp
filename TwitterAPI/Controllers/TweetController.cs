@@ -21,7 +21,7 @@ namespace TwitterAPI.Controllers
 
         // Add a new tweet
         [HttpPost, Route("AddTweet")]
-        // [Authorize(Roles = "User")] //Restrict access by roles
+        [Authorize(Roles = "Admin, User")] //Restrict access by roles
 
         public async Task<IActionResult> Add(Tweet tweet)
         {
@@ -42,7 +42,7 @@ namespace TwitterAPI.Controllers
 
         // Get all tweets
         [HttpGet, Route("GetTweets")]
-        // [Authorize(Roles = "Admin")] //Restrict access by roles
+        [Authorize(Roles = "Admin, User")] //Restrict access by roles
         public async Task<IActionResult> GetAll()
         {
             try

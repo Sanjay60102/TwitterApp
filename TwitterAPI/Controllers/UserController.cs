@@ -112,7 +112,7 @@ namespace TwitterAPI.Controllers
 
         // Get all users
         [HttpGet, Route("GetAllUsers")]
-        //[Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             try

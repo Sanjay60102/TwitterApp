@@ -13,6 +13,7 @@
 }
 
 .tweet-card {
+    cursor: pointer;
     background-color: #f8f9fa;
     border-radius: 8px;
     border: 1px solid #dee2e6;

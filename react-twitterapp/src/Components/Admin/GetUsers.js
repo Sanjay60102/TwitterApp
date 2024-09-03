@@ -3,9 +3,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 const GetUsers = () => {
     const [users, setUsers] = useState([])
+
     useEffect(()=>{
         axios
-        .get('http://localhost:5199/api/User/GetAllUsers')
+        .get('http://localhost:5199/api/User/GetAllUsers',{
+           headers:{
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`
+           }
+        })
         .then((res)=>{
             console.log(res.data);
             setUsers(res.data);

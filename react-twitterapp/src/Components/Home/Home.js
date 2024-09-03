@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import './Home.css';
 
-const UserDashboard = () => {
+const Home = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [userDetails, setUserDetails] = useState(null); // State to store user details
     const [error, setError] = useState(""); // State to store error message
@@ -87,4 +87,4 @@ const UserDashboard = () => {
     );
 };
 
-export default UserDashboard;
+export default Home;

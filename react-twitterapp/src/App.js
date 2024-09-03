@@ -14,6 +14,7 @@ import Followers from './Components/Home/Followers';
 import Following from './Components/Home/Following';
 import EditProfile from './Components/Home/EditProfile';
 import Notifications from './Components/Home/Notifications';
+import AddComment from './Components/Comment/AddComment';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path='AddTweet' element={<AddTweet/>}/>
           <Route path='GetTweets' element={<GetTweets/>}/>
           <Route path='EditProfile' element={<EditProfile/>}/>
+          <Route path='AddComment' element={<AddComment/>}/>
         </Routes>
       </BrowserRouter>
       

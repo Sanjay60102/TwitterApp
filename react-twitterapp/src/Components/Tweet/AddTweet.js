@@ -30,7 +30,11 @@ const AddTweet = () => {
         e.preventDefault();  // Prevent form submission
         console.log(tweet);
         axios
-            .post('http://localhost:5199/api/Tweet/AddTweet', tweet)
+            .post('http://localhost:5199/api/Tweet/AddTweet', tweet,{
+                headers:{
+                    Authorization: `Bearer ${sessionStorage.getItem("tekoen")}`
+                }
+            })
             .then((response) => {
                 console.log(response.data);
                 navigate("/Home");
