@@ -9,6 +9,9 @@ namespace TwitterAPI.Repositories
         // Retrieve all tweets
         Task<List<Tweet>> GetAll();
 
+        // Get tweets by the users that a specific user is following
+        public Task<List<Tweet>> GetTweetsByFollowingIdAsync(string userId);
+
         Task<Tweet> GetById(int id);
         // Retrieve tweets by a specific user ID
         Task<List<Tweet>> GetByUserIdAsync(string userId);

@@ -1,1 +1,0 @@
-// Allows the user to manage account settings, such as password changes or notification preferences.

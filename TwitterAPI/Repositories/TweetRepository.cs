@@ -108,6 +108,29 @@ namespace TwitterAPI.Repositories
             }
         }
 
-        
+        // Get tweets by the users that a specific user is following
+        public async Task<List<Tweet>> GetTweetsByFollowingIdAsync(string userId)
+        {
+            try
+            {
+                // Get the users that the given user is following
+                var followingIds = await _context.Follows
+                    .Where(f => f.UserId == userId)
+                    .Select(f => f.FollowingId)
+                    .ToListAsync();
+
+                // Get tweets from those users
+                var tweets = await _context.Tweets
+                    .Where(t => followingIds.Contains(t.UserId))
+                    .ToListAsync();
+
+                return tweets;
+            }
+            catch (Exception ex)
+            {
+                // Log exception here
+                throw new Exception("An error occurred while retrieving the tweets by FollowingId.", ex);
+            }
+        }
     }
 }

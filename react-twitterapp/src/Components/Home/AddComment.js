@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import './AddComment.css'
 
 const AddComment = () => {
@@ -31,7 +32,11 @@ const AddComment = () => {
         };
 
         axios
-            .post('http://localhost:5199/api/Comment/AddComment', comment)
+            .post('http://localhost:5199/api/Comment/AddComment', comment,{
+                headers:{
+                    Authorization:`Bearer ${sessionStorage.getItem("token")}`
+                }
+            })
             .then((response) => {
                 console.log(response.data);
                 setComments([...comments, response.data]); // Update the comments list
@@ -39,9 +44,14 @@ const AddComment = () => {
             })
             .catch((error) => console.log(error));
     };
+    const navigate = useNavigate();
+    const handleBack = () => {
+        navigate("/Home");
+    }
 
     return (
         <div className="container">
+            <button onClick={handleBack} className="back-button">Back</button>
             <p>Comments</p>
             <div className="tweet-details">
                 <h3> {tweet.message}</h3>
@@ -54,7 +64,7 @@ const AddComment = () => {
                 {comments.length > 0 ? (
                     comments.map((comment) => (
                         <div key={comment.commentId} className="comment">
-                            <p>{comment.content}</p>
+                            <h6>{comment.content}</h6>
                             <small>By User: {comment.userId}</small>
                         </div>
                     ))
@@ -65,7 +75,7 @@ const AddComment = () => {
 
             <form onSubmit={handleAddComment}>
                 <div className="form-group">
-                    <label htmlFor="newComment">Add a comment...</label>
+                    <p htmlFor="newComment">Add a comment...</p>
                     <textarea
                         type="text"
                         id="newComment"

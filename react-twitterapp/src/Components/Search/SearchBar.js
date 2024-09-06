@@ -1,1 +1,0 @@
-// Allows searching for users or tweets.

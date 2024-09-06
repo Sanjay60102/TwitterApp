@@ -9,6 +9,21 @@
     flex-grow: 1;
 }
 
+/* Positioning the Back button */
+.back-button {
+    position: absolute; /* Absolute position relative to the container */
+    top: 10px; /* Distance from the top */
+    left: 10px; /* Distance from the left */
+    background-color: #f0f0f0;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: #e0e0e0;
+}
 footer {
     background-color: #f8f9fa;
     padding: 20px;

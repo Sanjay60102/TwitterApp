@@ -3,44 +3,48 @@ import axios from "axios";
 import "./Notifications.css"; // Import the CSS file
 
 const Notifications = () => {
-    const [comments, setComments] = useState([]);
+    const [tweets, setTweets] = useState([]);
     const [error, setError] = useState("");
 
     useEffect(() => {
         const userId = sessionStorage.getItem("userId");
 
-        // Make a GET request to fetch comments for the specific userId
+        // Make a GET request to fetch tweets by followingId
         axios
-            .get(`http://localhost:5199/api/Comment/GetCommentsByUserId/${userId}`)
+            .get(`http://localhost:5199/api/Tweet/GetTweetsByFollowingId/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`
+                }
+            })
             .then((res) => {
                 if (res.status === 200) {
-                    setComments(res.data);  // Set the comments in state
+                    setTweets(res.data.reverse());  // Set the tweets in state
                 } else {
-                    setError("Error fetching comments");
+                    setError("Error fetching tweets");
                 }
             })
             .catch((err) => {
                 console.error(err);
-                setError("Error fetching comments");
+                setError("Error fetching tweets");
             });
     }, []);  // Empty dependency array ensures this runs only once on mount
 
     return (
-        <div className="comments-container">
-            <h3 className="comments-title">Received Comments</h3>
-            {error && <p className="error-message text-danger">{error}</p>}
-            {comments.length > 0 ? (
-                <ul className="comments-list">
-                    {comments.map((comment) => (
-                        <li key={comment.commentId} className="comment-item">
-                            <p className="comment-tweet"><strong>Tweet ID:</strong> {comment.tweetId}</p>
-                            <p className="comment-content"><strong>Content:</strong> {comment.content}</p>
-                            <p className="comment-created"><small>{new Date(comment.createdAt).toLocaleString()}</small></p>
+        <div className="tweets-container">
+            <h3 className="tweets-title">Tweets by Followed Users</h3>
+            {error && <p className="error-message">{error}</p>}
+            {tweets.length > 0 ? (
+                <ul className="tweets-list">
+                    {tweets.map((tweet) => (
+                        <li key={tweet.tweetId} className="tweet-item">
+                            <p className="tweet-userId">User ID: {tweet.userId}</p>
+                            <p className="tweet-message"><strong>Tweet:</strong> {tweet.message}</p>
+                            <p className="tweet-created"><small>{new Date(tweet.created).toLocaleString()}</small></p>
                         </li>
                     ))}
                 </ul>
             ) : (
-                <p className="no-comments">No comments available for this user.</p>
+                <p className="no-tweets">No tweets available from followed users.</p>
             )}
         </div>
     );

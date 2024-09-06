@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import axios from "axios";
 import './Home.css';
+import Logo from '../../Images/logo.png'
 
 const Home = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [userDetails, setUserDetails] = useState(null); // State to store user details
-    const [error, setError] = useState(""); // State to store error message
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -14,24 +12,17 @@ const Home = () => {
         sessionStorage.removeItem("token");
         navigate("/Login");
     };
+    
+    const handleSearchButton = () => {
+        // Pass the searchQuery to the Search page via navigation state
+        navigate("./Search", { state: { userId: searchQuery } });
+    }
 
-    const handleSearch = () => {
-        axios.get(`http://localhost:5199/api/User/GetUserById/${searchQuery}`)
-            .then(res => {
-                if (res.status === 200) {
-                    setUserDetails(res.data); // Set user details in state
-                    setError(""); // Clear any previous errors
-                } else {
-                    setUserDetails(null);
-                    setError("User not found.");
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                setUserDetails(null);
-                setError("Error fetching user details.");
-            });
-    };
+    useEffect(() => {
+        if (sessionStorage.getItem("token") === null) {
+          navigate("/login");
+        }
+      }, []);
 
     return (
         <div className="page-container">
@@ -48,27 +39,22 @@ const Home = () => {
                 <div className="content-container">
                     {/* Title in the center */}
                     <div className="title-container">
+                        <img src={Logo} alt="Logo" width="70" height="40"/>
                         <h1 className="title">Twitter</h1>
                     </div>
                     <div className="search-container">
                         <input
                             type="text"
                             className="form-control search-input"
-                            placeholder="Search..."
+                            placeholder="Enter User ID..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        <button className="btn btn-primary search-button" onClick={handleSearch}>Search</button>
+                        <button className="btn btn-primary search-button" onClick={handleSearchButton}>
+                            Search
+                        </button>
                     </div>
                     <main className="content">
-                        {error && <p className="error-message text-danger">{error}</p>}
-                        {userDetails && (
-                            <div className="user-details">
-                                <h3>User Profile</h3>
-                                <p><strong>User ID:</strong> {userDetails.userId}</p>
-                                <p><strong>Name:</strong> {userDetails.userName}</p>
-                            </div>
-                        )}
                         <Outlet />
                     </main>
                 </div>

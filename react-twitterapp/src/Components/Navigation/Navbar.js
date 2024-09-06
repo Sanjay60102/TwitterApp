@@ -1,1 +1,0 @@
-// Provides navigation links to different parts of the app (e.g., Home, Profile, Notifications).

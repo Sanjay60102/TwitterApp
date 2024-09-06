@@ -22,7 +22,7 @@ const AdminDashboard = () => {
                 <li>
                     <button onClick={handleHome} className="home-btn">Home</button></li>
                     <li><Link to="GetUsers">Get Users</Link></li>
-                    <li><Link to="GetTweets">Get Tweets</Link></li>
+                    <li><Link to="GetTweetsAdmin">Get Tweets</Link></li>
                     <li><Link to="AddTweet">Add Post</Link></li>
                     <li><button onClick={handleLogout} className="logout-btn">Logout</button></li>
                 </ul>

@@ -1,19 +1,31 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import './Login.css';
 
-const Login = () => {
-    const [email, setEmail] = useState("");
-    const [pwd, setPwd] = useState("");
-    const [err, setErr] = useState("");
+// Validation schema using Yup
+const validationSchema = Yup.object({
+    email: Yup.string()
+        .email("Invalid email format")
+        .required("Email is required"),
+    password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required"),
+});
 
+const Login = () => {
+    const [err, setErr] = useState("");
     const navigate = useNavigate();
 
-    const Validate = (e) => {
-        e.preventDefault();
-        let user = { email, password: pwd };
-        
+    const handleBack = () => {
+        navigate("/");
+    };
+
+    const handleLogin = (values) => {
+        let user = { email: values.email, password: values.password };
+
         axios
             .post("http://localhost:5199/api/User/Validate", user)
             .then((response) => {
@@ -38,44 +50,75 @@ const Login = () => {
             <div className="content-wrap">
                 <div className="container login-container">
                     <h1>Login</h1>
-                    <form onSubmit={Validate}>
-                        <table className="table">
-                            <tbody>
-                                <tr>
-                                    <td>Email</td>
-                                    <td>
-                                        <input 
-                                            type="email"
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            className="form-control"
-                                        />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Password</td>
-                                    <td>
-                                        <input 
-                                            type="password"
-                                            value={pwd}
-                                            onChange={(e) => setPwd(e.target.value)}
-                                            className="form-control"
-                                        />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2}>
-                                        <button type="submit" className="btn btn-primary">Login</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan={2}>
-                                        <span className="text-danger">{err}</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
+                    <button onClick={handleBack} className="back-button">Back</button>
+                    <Formik
+                        initialValues={{ email: "", password: "" }}
+                        validationSchema={validationSchema}
+                        onSubmit={handleLogin}
+                    >
+                        {({ isSubmitting }) => (
+                            <Form>
+                                <table className="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>
+                                                <Field
+                                                    type="email"
+                                                    name="email"
+                                                    className="form-control"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={2}>
+                                                <ErrorMessage
+                                                    name="email"
+                                                    component="div"
+                                                    className="text-danger"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Password</td>
+                                            <td>
+                                                <Field
+                                                    type="password"
+                                                    name="password"
+                                                    className="form-control"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={2}>
+                                                <ErrorMessage
+                                                    name="password"
+                                                    component="div"
+                                                    className="text-danger"
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={2}>
+                                                <button
+                                                    type="submit"
+                                                    className="btn btn-primary"
+                                                    disabled={isSubmitting}
+                                                >
+                                                    {isSubmitting ? "Logging in..." : "Login"}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan={2}>
+                                                <span className="text-danger">{err}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </Form>
+                        )}
+                    </Formik>
                 </div>
             </div>
             <footer>

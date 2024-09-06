@@ -21,7 +21,7 @@ namespace TwitterAPI.Controllers
 
         // Add a new tweet
         [HttpPost, Route("AddTweet")]
-        [Authorize(Roles = "Admin, User")] //Restrict access by roles
+        //[Authorize(Roles = "Admin, User")] //Restrict access by roles
 
         public async Task<IActionResult> Add(Tweet tweet)
         {
@@ -56,6 +56,24 @@ namespace TwitterAPI.Controllers
                 return StatusCode(500, "An error occurred while retrieving the tweets.");
             }
         }
+
+        // Get tweets by the users that a specific user is following
+        [HttpGet, Route("GetTweetsByFollowingId/{userId}")]
+        [Authorize(Roles = "User,Admin")] // Restrict access by roles
+        public async Task<IActionResult> GetTweetsByFollowingId(string userId)
+        {
+            try
+            {
+                var tweets = await _tweetRepository.GetTweetsByFollowingIdAsync(userId);
+                return Ok(tweets);
+            }
+            catch (Exception ex)
+            {
+                // Log exception here
+                return StatusCode(500, "An error occurred while retrieving the tweets by FollowingId.");
+            }
+        }
+
 
         //Get tweet by Id
         [HttpGet, Route("GetById/{tweetId}")]

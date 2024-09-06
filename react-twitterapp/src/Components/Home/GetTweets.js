@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './GetTweets.css'; // Import the CSS file
+import TweetImage from '../../Images/Tweet1.jpg'
 
 const GetTweets = () => {
     const [tweets, setTweets] = useState([]);
@@ -9,19 +10,20 @@ const GetTweets = () => {
 
     const handleAddComment = (tweet) => {
         // Navigate to AddComment page with tweet data
-        navigate("/AddComment", { state: { tweet } });
+        navigate("AddComment", { state: { tweet } });
     }
 
     useEffect(() => {
         axios
-            .get('http://localhost:5199/api/Tweet/GetTweets',{
-                headers:{
-                    Authorization:`Bearer ${sessionStorage.getItem("token")}`
+            .get('http://localhost:5199/api/Tweet/GetTweets', {
+                headers: {
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`
                 }
             })
             .then((response) => {
                 console.log(response.data);
-                setTweets(response.data);
+                // Reverse the tweets array to show the newest tweet at the top
+                setTweets(response.data.reverse());
             })
             .catch((error) => console.log(error));
     }, []);
@@ -32,15 +34,9 @@ const GetTweets = () => {
             <div className="tweets-list">
                 {tweets.map((tweet) => (
                     <div key={tweet.tweetId} className="tweet-card" onClick={() => handleAddComment(tweet)}>
-                        
-                            <div className="tweet-userId">{tweet.userId}</div>
-                            <div className="tweet-message">{tweet.message}</div>
-                        {/* <button 
-                            className="btn btn-outline-secondary btn-sm" 
-                            onClick={() => handleAddComment(tweet)}
-                        >
-                            Add Comment
-                        </button> */}
+                        <div className="tweet-userId">Id: {tweet.userId}</div>
+                        <img src={TweetImage} alt="TweetImage" width="300" height="250"/>
+                        <div className="tweet-message"><strong>{tweet.message}</strong></div>
                     </div>
                 ))}
             </div>
