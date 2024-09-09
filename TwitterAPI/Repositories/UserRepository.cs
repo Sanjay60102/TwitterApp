@@ -101,28 +101,32 @@ namespace TwitterAPI.Repositories
             
         }
 
-        // Deletes a user by ID
-        public async Task Delete(string id)
+        public async Task Delete(string userId)
         {
             try
             {
-                var user = await _context.Users.FindAsync(id); // Finds user by ID
-                if (user == null)
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.UserId == userId); // Retrieve user by ID
+                if (user != null)
                 {
-                    throw new Exception("User not found");
+                    _context.Users.Remove(user); // Remove user from the context
+                    await _context.SaveChangesAsync(); // Save changes to the database
                 }
-                _context.Users.Remove(user); // Removes user from context
-                await _context.SaveChangesAsync(); // Saves changes to database
+                else
+                {
+                    throw new Exception("User not found.");
+                }
             }
             catch (Exception ex)
             {
                 // Log exception here
                 throw new Exception("An error occurred while deleting the user.", ex);
             }
-            
-            
         }
 
-        
+
+
+
+
+
     }
 }

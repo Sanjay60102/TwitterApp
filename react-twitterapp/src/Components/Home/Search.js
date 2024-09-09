@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Search = () => {
@@ -7,6 +7,7 @@ const Search = () => {
     const [userDetails, setUserDetails] = useState(null);
     const [isFollowing, setIsFollowing] = useState(false);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const userId = sessionStorage.getItem("userId"); // Logged-in user's ID
     const searchedUserId = location.state?.userId; // Searched user ID
@@ -15,9 +16,14 @@ const Search = () => {
         const fetchUserDetails = async () => {
             try {
                 const response = await axios.get(`http://localhost:5199/api/User/GetUserById/${searchedUserId}`);
-                setUserDetails(response.data);
-                setError("");
-                checkFollowingStatus(); // Check if the logged-in user is already following the searched user
+                if (response.data) {
+                    setUserDetails(response.data);
+                    setError("");
+                    checkFollowingStatus(); // Check if the logged-in user is already following the searched user
+                } else {
+                    setError("User not found");
+                    setUserDetails(null); // Clear previous user details
+                }
             } catch (err) {
                 setError("User not found");
                 setUserDetails(null); // Clear previous user details
@@ -62,12 +68,19 @@ const Search = () => {
         }
     };
 
+    const handleViewProfile = () => {
+        navigate("../ViewProfile");
+    };
+
     return (
         <div className="search-page">
             {error && <p className="error-message text-danger">{error}</p>}
             {userDetails && (
                 <div className="user-details">
                     <h3>User Profile</h3>
+                    <button className="btn btn-primary btn-sm" onClick={handleViewProfile}>View Profile</button>
+                    <br/>
+                    <br/>
                     <p><strong>User ID:</strong> {userDetails.userId}</p>
                     <p><strong>Name:</strong> {userDetails.userName}</p>
                     <button 
@@ -83,3 +96,4 @@ const Search = () => {
 };
 
 export default Search;
+    

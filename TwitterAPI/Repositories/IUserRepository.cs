@@ -16,8 +16,9 @@ namespace TwitterAPI.Repositories
         Task<IEnumerable<User>> GetAllUsersAsync();
         // Updates user details
         Task Update(User user);
-        // Deletes a user by ID
-        Task Delete(string id);
-        
+
+        Task Delete(string userId);
+
+
     }
 }

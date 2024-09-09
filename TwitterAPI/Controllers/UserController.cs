@@ -112,7 +112,7 @@ namespace TwitterAPI.Controllers
 
         // Get all users
         [HttpGet, Route("GetAllUsers")]
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -147,22 +147,25 @@ namespace TwitterAPI.Controllers
             }
         }
 
-        //Delete User Profile
-        [HttpDelete, Route("DeleteProfile/{id}")]
-        //[Authorize(Roles = "User,Admin")] //Restrict access by roles
-        public async Task<IActionResult> Delete(string id)
+        // Delete User Profile by userId
+        [HttpDelete, Route("DeleteUser/{userId}")]
+        // [Authorize(Roles = "User,Admin")] // Uncomment to restrict access to specific roles
+        public async Task<IActionResult> DeleteUser(string userId)
         {
             try
             {
-                await _userRepository.Delete(id); // Delete user by ID
-                return Ok(); // Return success response
+                await _userRepository.Delete(userId);
+                return Ok(); // Return success response after deletion
             }
             catch (Exception ex)
             {
                 // Log exception here
-                return StatusCode(500, "An error occurred while deleting the user profile.");
+                return StatusCode(500, "An error occurred while deleting the User.");
             }
         }
+
+
+
 
         //Generating Token
         private string GetToken(User user)

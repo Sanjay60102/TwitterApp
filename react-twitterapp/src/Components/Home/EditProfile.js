@@ -39,14 +39,32 @@ const EditProfile = () => {
             .then((res) => {
                 if (res.status === 200) {
                     setSuccess("Profile updated successfully");
-                    navigate("/Home/Profile")
                     setError("");
+                    navigate("/Home/Profile");
                 } else {
                     setError("Error updating profile");
                 }
             })
             .catch((err) => {
                 setError("Error updating profile");
+            });
+    };
+
+    const handleDelete = () => {
+        const userId = sessionStorage.getItem("userId");
+        axios
+            .delete(`http://localhost:5199/api/User/DeleteProfile/${userId}`)
+            .then((res) => {
+                if (res.status === 200) {
+                    setSuccess("Profile deleted successfully");
+                    sessionStorage.clear(); // Clear session
+                    navigate("/Login"); // Redirect to login after deletion
+                } else {
+                    setError("Error deleting profile");
+                }
+            })
+            .catch((err) => {
+                setError("Error deleting profile");
             });
     };
 
@@ -93,6 +111,14 @@ const EditProfile = () => {
                 <button type="submit" className="btn btn-primary">
                     Save Changes
                 </button>
+                {/* <button
+                    type="button"
+                    onClick={handleDelete}
+                    className="btn btn-danger"
+                    style={{ marginLeft: "10px" }}
+                >
+                    Delete Profile
+                </button> */}
                 {success && <p className="success-message">{success}</p>}
                 {error && <p className="error-message">{error}</p>}
             </form>

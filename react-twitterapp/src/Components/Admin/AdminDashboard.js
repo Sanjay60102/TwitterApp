@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import './AdminDashboard.css';
+import Logo from '../../Images/logo.png';
+
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -28,11 +30,13 @@ const AdminDashboard = () => {
                 </ul>
             </nav>
             <div className="admin-content">
-                <h1>Twitter</h1>
+                
+                <h1><img src={Logo} alt="Logo" width="70" height="40"/>Twitter</h1>
                 <h4>Welcome to Admin Dashboard</h4>
                 <Outlet />
             </div>
         </div>
+        
     );
 };
 

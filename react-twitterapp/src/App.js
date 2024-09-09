@@ -18,6 +18,7 @@ import GetTweetsAdmin from './Components/Admin/GetTweetsAdmin';
 import AddComment from './Components/Home/AddComment';
 import Search from './Components/Home/Search';
 import AddFollowing from './Components/Follow/FollowButton';
+import ViewProfile from './Components/Home/ViewProfile';
 
 function App() {
   return (
@@ -27,18 +28,21 @@ function App() {
           <Route path='/' element={<Layout/>}/>
           <Route path='Login' element={<Login/>}/>
           <Route path='Register' element={<Register/>}/>
+
           {/* Admin Dashboard */}
           <Route path='AdminDashboard' element={<AdminDashboard/>}>
             <Route path='GetUsers' element={<GetUsers/>}/>
             <Route path='AddTweet' element={<AddTweet/>}/>
             <Route path='GetTweetsAdmin' element={<GetTweetsAdmin/>}/>
           </Route>
+
           {/* User Dashboard */}
           <Route path="Home" element={<Home />}>
             <Route index element={<GetTweets />} />
             <Route path="Notifications" element={<Notifications />} />
             <Route path="AddComment" element={<AddComment />} />
             <Route path="Search" element={<Search />} />
+            <Route path='ViewProfile' element={<ViewProfile/>}/>
             <Route path='AddTweet' element={<AddTweet/>}/>
             <Route path="Profile" element={<Profile />}>
               <Route path="Posts" element={<Posts />} />

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import './AddTweet.css';
 
 const AddTweet = () => {
-    const [tweet, SetTweet] = useState({
+    const [tweet, SetTweet] = useState({    
         tweetId: 0,
         userId: '',  // userId will be populated from sessionStorage
         message: '',
@@ -60,6 +60,7 @@ const AddTweet = () => {
                             className="form-control"
                             rows="4"
                             value={tweet.message}
+                            placeholder="What is Happening?!"
                             onChange={(e) =>
                                 SetTweet((prevObj) => ({
                                     ...prevObj,

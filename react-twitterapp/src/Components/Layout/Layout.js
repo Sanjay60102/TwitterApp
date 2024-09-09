@@ -15,8 +15,6 @@ export default function Layout() {
                     <header className="my-4">
                         <h1>Twitter</h1>
                     </header>
-                    
-                    
                     <h3>Join today.</h3>
                     <button onClick={handleRegister} className="btn btn-primary my-2">Create Account</button>
                     <br />

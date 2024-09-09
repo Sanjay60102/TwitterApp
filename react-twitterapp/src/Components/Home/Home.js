@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse, faMessage, faUser, faRightFromBracket, faPlus, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import './Home.css';
-import Logo from '../../Images/logo.png'
+import Logo from '../../Images/logo.png';
 
 const Home = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -29,11 +31,25 @@ const Home = () => {
             <div className="dashboard-container">
                 <div className="nav-container">
                     <nav className="btn-group-vertical w-100">
-                        <Link className="btn btn-outline-primary mb-2" to="">Home</Link>
-                        <Link className="btn btn-outline-primary mb-2" to="Notifications">Notifications</Link>
-                        <Link className="btn btn-outline-primary mb-2" to="Profile">Profile</Link>
-                        <Link className="btn btn-outline-primary mb-2" to="AddTweet">Post</Link>
-                        <button onClick={handleLogout} className="btn btn-secondary mt-2">Logout</button>
+                        <Link className="btn btn-outline-primary mb-2" to="">
+                            <FontAwesomeIcon icon={faHouse} className="icon-left" /> 
+                            Home
+                        </Link>
+                        <Link className="btn btn-outline-primary mb-2" to="Notifications">
+                            <FontAwesomeIcon icon={faMessage} className="icon-left" /> 
+                            Notifications
+                        </Link>
+                        <Link className="btn btn-outline-primary mb-2" to="Profile">
+                            <FontAwesomeIcon icon={faUser} className="icon-left" />
+                            Profile
+                        </Link>
+                        <Link className="btn btn-outline-primary mb-2" to="AddTweet">
+                            <FontAwesomeIcon icon={faPlus} className="icon-left" />
+                            Post
+                        </Link>
+                        <button onClick={handleLogout} className="btn btn-secondary mt-2">
+                            Logout
+                        </button>
                     </nav>
                 </div>
                 <div className="content-container">

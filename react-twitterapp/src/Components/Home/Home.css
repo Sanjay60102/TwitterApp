@@ -27,9 +27,22 @@
 /* Button styles for navigation */
 .btn-outline-primary {
     width: 100%;
-    text-align: left;
-    padding-left: 20px;
+    text-align: center; /* Center the text */
+    padding-left: 0; /* Remove default padding */
+    position: relative; /* For positioning the icon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.btn-outline-primary .icon-left {
+    position: absolute;
+    left: 15px; /* Position the icon on the left side */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center the icon */
+}
+
+
 
 /* Content container on the right */
 .content-container {

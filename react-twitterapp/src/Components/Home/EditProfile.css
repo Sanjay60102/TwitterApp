@@ -31,14 +31,15 @@
 }
 
 .btn-primary {
-    background-color: #1da1f2;
-    border-color: #1da1f2;
+    background-color: #1da1f2 !important;
+    border-color: #1da1f2 !important;
     color: white;
     font-weight: bold;
     border-radius: 20px;
     padding: 10px 20px;
     cursor: pointer;
 }
+
 
 .success-message {
     color: #28a745;
