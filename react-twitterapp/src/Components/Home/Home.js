@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faMessage, faUser, faRightFromBracket, faPlus, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faMessage, faUser, faPlus } from "@fortawesome/free-solid-svg-icons";
 import './Home.css';
 import Logo from '../../Images/logo.png';
 
@@ -22,7 +22,7 @@ const Home = () => {
 
     useEffect(() => {
         if (sessionStorage.getItem("token") === null) {
-          navigate("/login");
+          navigate("/Login");
         }
       }, []);
 

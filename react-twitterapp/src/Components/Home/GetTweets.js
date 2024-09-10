@@ -31,7 +31,7 @@ const GetTweets = () => {
     return (
         <div className="tweets-container">
             <h1>Tweets</h1>
-            <p style={{fontSize:"0.75rem"}}>👇 Click on tweet to view Comments 👇</p>
+            <p style={{fontSize:"0.75rem"}}>Click on tweet to view Comments</p>
             <div className="tweets-list">
                 {tweets.map((tweet) => (
                     <div key={tweet.tweetId} className="tweet-card" onClick={() => handleAddComment(tweet)}>

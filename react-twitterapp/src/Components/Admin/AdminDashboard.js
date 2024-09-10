@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import './AdminDashboard.css';
 import Logo from '../../Images/logo.png';
@@ -16,6 +16,11 @@ const AdminDashboard = () => {
     const handleHome = () => {
         navigate("/AdminDashboard");
     };
+    useEffect(()=>{
+        if(sessionStorage.getItem("token") === null) {
+            navigate("/Login")
+        }
+    })
 
     return (
         <div className="dashboard-container">
